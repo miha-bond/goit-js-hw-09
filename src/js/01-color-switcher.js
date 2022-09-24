@@ -1,8 +1,31 @@
+const refs = {
+  body: document.querySelector('body'),
+  startBtn: document.querySelector('[data-start]'),
+  stopBtn: document.querySelector('[data-stop]'),
+};
 // +++++++++++++++++++++++++++++++++++
-
+refs.startBtn.disabled = false;
+refs.stopBtn.disabled = true;
+refs.startBtn.addEventListener('click', evt => {
+  evt.preventDefault();
+  timerId = setInterval(() => {
+    refs.startBtn.disabled = true;
+    refs.stopBtn.disabled = false;
+    refs.body.style.backgroundColor = getRandomHexColor();
+  }, 500);
+});
+//
+refs.stopBtn.addEventListener('click', () => {
+  refs.startBtn.disabled = false;
+  refs.stopBtn.disabled = true;
+  clearInterval(timerId);
+});
+// -----------------------------------
 function getRandomHexColor() {
   return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
 }
+// ------------------------------------
+
 // -----------------------------------------------------------
 // ===========================================================
 //todo Завдання 1 - перемикач кольорів
