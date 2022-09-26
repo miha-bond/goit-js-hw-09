@@ -1,5 +1,31 @@
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import flatpickr from 'flatpickr';
+import 'flatpickr/dist/flatpickr.min.css';
 // +++++++++++++++++++++++++++++++++++++++++++++++
+const refs = {
+  input: document.querySelector('#datetime-picker'),
+  startBtn: document.querySelector('[data-start]'),
+  timer: document.querySelector('.timer'),
+  field: document.querySelector('.field'),
+  days: document.querySelector('[data-days]'),
+  hours: document.querySelector('[data-hours]'),
+  minutes: document.querySelector('[data-minutes]'),
+  seconds: document.querySelector('[data-seconds]'),
+};
+// ------------------------------------------------
+refs.startBtn.disabled = true;
+//
+const optionsFlatpickr = {
+  enableTime: true,
+  time_24hr: true,
+  defaultDate: new Date(),
+  minuteIncrement: 1,
+  onClose(selectedDates) {
+    console.log(selectedDates[0]);
+  },
+};
+//------------------------------------------------
+const fp = flatpickr(refs.input, optionsFlatpickr); // flatpickr
 
 // ------------------------------------------------
 // ================================================
