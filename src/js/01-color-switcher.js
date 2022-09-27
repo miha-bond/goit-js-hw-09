@@ -16,7 +16,7 @@ refs.startBtn.addEventListener('click', evt => {
   }, 500);
 });
 // function start (){
-//   timerId = setInterval(() => {
+//  timerId = setInterval(() => {
 //     refs.startBtn.disabled = true;
 //     refs.stopBtn.disabled = false;
 //     refs.body.style.backgroundColor = getRandomHexColor();
