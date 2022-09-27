@@ -6,6 +6,7 @@ const refs = {
 // +++++++++++++++++++++++++++++++++++
 refs.startBtn.disabled = false;
 refs.stopBtn.disabled = true;
+let timerId = null;
 refs.startBtn.addEventListener('click', evt => {
   evt.preventDefault();
   timerId = setInterval(() => {
@@ -14,6 +15,13 @@ refs.startBtn.addEventListener('click', evt => {
     refs.body.style.backgroundColor = getRandomHexColor();
   }, 500);
 });
+// function start (){
+//   timerId = setInterval(() => {
+//     refs.startBtn.disabled = true;
+//     refs.stopBtn.disabled = false;
+//     refs.body.style.backgroundColor = getRandomHexColor();
+//   }, 500);
+// }
 //
 refs.stopBtn.addEventListener('click', () => {
   refs.startBtn.disabled = false;
