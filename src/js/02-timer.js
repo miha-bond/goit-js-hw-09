@@ -6,8 +6,6 @@ require('flatpickr/dist/themes/material_blue.css');
 const refs = {
   input: document.querySelector('#datetime-picker'),
   startBtn: document.querySelector('[data-start]'),
-  timer: document.querySelector('.timer'),
-  field: document.querySelector('.field'),
   days: document.querySelector('[data-days]'),
   hours: document.querySelector('[data-hours]'),
   minutes: document.querySelector('[data-minutes]'),
@@ -22,12 +20,56 @@ const optionsFlatpickr = {
   defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
-    console.log(selectedDates[0]);
+    let selectedDate = selectedDates[0].getTime() - Date.now();
+    console.log(selectedDate);
+    if (selectedDate <= 0) {
+      return Notify.failure('Виберіть час в майбутньому');
+    } else {
+      refs.startBtn.disabled = false;
+      refs.startBtn.addEventListener('click', () => {
+        refs.startBtn.disabled = true;
+        Notify.info('Відлік почато');
+        let intervalId = setInterval(() => {
+          const deltaTime = selectedDates[0].getTime() - Date.now();
+          const reverseTimer = convertMs(deltaTime);
+          refs.days.textContent = addLeadingZero(reverseTimer.days);
+          refs.hours.textContent = addLeadingZero(reverseTimer.hours);
+          refs.minutes.textContent = addLeadingZero(reverseTimer.minutes);
+          refs.seconds.textContent = addLeadingZero(reverseTimer.seconds);
+          if (deltaTime <= 500) {
+            clearInterval(intervalId);
+            return Notify.success('Відлік закінчено');
+          }
+        }, 1000);
+      });
+    }
   },
 };
 //------------------------------------------------
-const fp = flatpickr(refs.input, optionsFlatpickr); // flatpickr
+flatpickr(refs.input, optionsFlatpickr); //! flatpickr
+// -----------------------------------------------
+function convertMs(ms) {
+  // Number of milliseconds per unit of time
+  const second = 1000;
+  const minute = second * 60;
+  const hour = minute * 60;
+  const day = hour * 24;
 
+  // Remaining days
+  const days = Math.floor(ms / day);
+  // Remaining hours
+  const hours = Math.floor((ms % day) / hour);
+  // Remaining minutes
+  const minutes = Math.floor(((ms % day) % hour) / minute);
+  // Remaining seconds
+  const seconds = Math.floor((((ms % day) % hour) % minute) / second);
+
+  return { days, hours, minutes, seconds };
+}
+// -------------------------------------------------
+function addLeadingZero(value) {
+  return String(value).padStart(2, '0');
+}
 // ------------------------------------------------
 // ================================================
 //todo Завдання 2 - таймер зворотного відліку
