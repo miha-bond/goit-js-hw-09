@@ -28,6 +28,7 @@ const optionsFlatpickr = {
       refs.startBtn.disabled = false;
       refs.startBtn.addEventListener('click', () => {
         refs.startBtn.disabled = true;
+        refs.input.disabled = true;
         Notify.info('Відлік почато');
         let intervalId = setInterval(() => {
           const deltaTime = selectedDates[0].getTime() - Date.now();
