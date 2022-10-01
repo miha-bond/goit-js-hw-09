@@ -1,14 +1,42 @@
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-import flatpickr from 'flatpickr';
+const refs = {
+  delay: document.querySelector('input[name="delay"]'),
+  step: document.querySelector('input[name="step"]'),
+  amount: document.querySelector('input[name="amount"]'),
+  btnSubmit: document.querySelector('.form'),
+};
 // ++++++++++++++++++++++++++++++++++++++++++
-function createPromise(position, delay) {
-  const shouldResolve = Math.random() > 0.3;
-  if (shouldResolve) {
-    // Fulfill
-  } else {
-    // Reject
-  }
+function createPromise(i, delayValue) {
+  return new Promise((resolve, reject) => {
+    const shouldResolve = Math.random() > 0.3;
+    const intervalId = setInterval(() => {
+      if (shouldResolve) {
+        resolve({ i, delayValue });
+      } else {
+        reject({ i, delayValue });
+      }
+    }, delayValue);
+  });
 }
+// ---------------------------------------------
+refs.btnSubmit.addEventListener('submit', evt => {
+  evt.preventDefault();
+  let delayValue = Number(refs.delay.value);
+  let stepValue = Number(refs.step.value);
+  let amountValue = Number(refs.amount.value);
+
+  for (let i = 1; i < amountValue; i += 1) {
+    createPromise(i, delayValue)
+      .then(({ i, delayValue }) => {
+        return Notify.success(`Fulfilled promise ${i} in ${delayValue}ms`);
+      })
+      .catch(({ i, delayValue }) => {
+        return Notify.failure(`Rejected promise ${i} in ${delayValue}ms`);
+      });
+    delayValue += stepValue;
+  }
+});
+
 // -------------------------------------------
 // ===========================================
 
@@ -36,12 +64,12 @@ function createPromise(position, delay) {
 //? Напиши скрипт, який на момент сабміту форми викликає функцію createPromise(position, delay) стільки разів, скільки ввели в поле amount. Під час кожного виклику передай їй номер промісу (position), що створюється, і затримку, враховуючи першу затримку (delay), введену користувачем, і крок (step).
 //
 //*      function createPromise(position, delay) {
-//*       const shouldResolve = Math.random() > 0.3;
-//*       if (shouldResolve) {
-//*               Fulfill;
-//*       } else {
-//*              Reject;
-//*       }
+//*        const shouldResolve = Math.random() > 0.3;
+//*        if (shouldResolve) {
+//*                Fulfill;
+//*        } else {
+//*               Reject;
+//*        }
 //*      }
 //
 //? Доповни код функції createPromise таким чином, щоб вона повертала один проміс, який виконується або відхиляється через delay часу. Значенням промісу повинен бути об'єкт, в якому будуть властивості position і delay зі значеннями однойменних параметрів. Використовуй початковий код функції для вибору того, що потрібно зробити з промісом - виконати або відхилити.
