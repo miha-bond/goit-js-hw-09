@@ -23,7 +23,8 @@ const optionsFlatpickr = {
   selectedDate: null,
   onClose(selectedDates) {
     selectedDate = selectedDates[0].getTime();
-    if (selectedDate <= 0) {
+    const deltaDate = selectedDate - Date.now();
+    if (deltaDate <= 0) {
       return Notify.failure('Виберіть час в майбутньому');
     }
   },
