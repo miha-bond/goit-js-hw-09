@@ -9,7 +9,7 @@ const refs = {
 function createPromise(i, delayValue) {
   return new Promise((resolve, reject) => {
     const shouldResolve = Math.random() > 0.3;
-    const intervalId = setInterval(() => {
+    const intervalId = setTimeout(() => {
       if (shouldResolve) {
         resolve({ i, delayValue });
       } else {
