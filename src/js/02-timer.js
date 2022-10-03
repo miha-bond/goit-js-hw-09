@@ -12,42 +12,43 @@ const refs = {
   seconds: document.querySelector('[data-seconds]'),
 };
 // ------------------------------------------------
-refs.startBtn.disabled = true;
+refs.startBtn.disabled = false;
 //
+let selectedDate = null;
 const optionsFlatpickr = {
   enableTime: true,
   time_24hr: true,
   defaultDate: new Date(),
   minuteIncrement: 1,
+  selectedDate: null,
   onClose(selectedDates) {
-    let selectedDate = selectedDates[0].getTime() - Date.now();
-    console.log(selectedDate);
+    selectedDate = selectedDates[0].getTime();
     if (selectedDate <= 0) {
       return Notify.failure('Виберіть час в майбутньому');
-    } else {
-      refs.startBtn.disabled = false;
-      refs.startBtn.addEventListener('click', () => {
-        refs.startBtn.disabled = true;
-        refs.input.disabled = true;
-        Notify.info('Відлік почато');
-        let intervalId = setInterval(() => {
-          const deltaTime = selectedDates[0].getTime() - Date.now();
-          const reverseTimer = convertMs(deltaTime);
-          refs.days.textContent = addLeadingZero(reverseTimer.days);
-          refs.hours.textContent = addLeadingZero(reverseTimer.hours);
-          refs.minutes.textContent = addLeadingZero(reverseTimer.minutes);
-          refs.seconds.textContent = addLeadingZero(reverseTimer.seconds);
-          if (deltaTime <= 500) {
-            clearInterval(intervalId);
-            return Notify.success('Відлік закінчено');
-          }
-        }, 1000);
-      });
     }
   },
 };
-//------------------------------------------------
 flatpickr(refs.input, optionsFlatpickr); //! flatpickr
+console.log(selectedDate);
+//------------------------------------------------
+
+refs.startBtn.addEventListener('click', () => {
+  refs.startBtn.disabled = true;
+  refs.input.disabled = true;
+  Notify.info('Відлік почато');
+  let intervalId = setInterval(() => {
+    const deltaTime = selectedDate - Date.now();
+    const reverseTimer = convertMs(deltaTime);
+    refs.days.textContent = addLeadingZero(reverseTimer.days);
+    refs.hours.textContent = addLeadingZero(reverseTimer.hours);
+    refs.minutes.textContent = addLeadingZero(reverseTimer.minutes);
+    refs.seconds.textContent = addLeadingZero(reverseTimer.seconds);
+    if (deltaTime <= 500) {
+      clearInterval(intervalId);
+      return Notify.success('Відлік закінчено');
+    }
+  }, 1000);
+});
 // -----------------------------------------------
 function convertMs(ms) {
   // Number of milliseconds per unit of time

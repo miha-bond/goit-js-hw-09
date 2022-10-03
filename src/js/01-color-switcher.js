@@ -8,21 +8,13 @@ refs.startBtn.disabled = false;
 refs.stopBtn.disabled = true;
 let timerId = null;
 refs.startBtn.addEventListener('click', evt => {
-  evt.preventDefault();
+  refs.startBtn.disabled = true;
+  refs.stopBtn.disabled = false;
   timerId = setInterval(() => {
-    refs.startBtn.disabled = true;
-    refs.stopBtn.disabled = false;
     refs.body.style.backgroundColor = getRandomHexColor();
   }, 500);
 });
-// function start (){
-//  timerId = setInterval(() => {
-//     refs.startBtn.disabled = true;
-//     refs.stopBtn.disabled = false;
-//     refs.body.style.backgroundColor = getRandomHexColor();
-//   }, 500);
-// }
-//
+
 refs.stopBtn.addEventListener('click', () => {
   refs.startBtn.disabled = false;
   refs.stopBtn.disabled = true;
