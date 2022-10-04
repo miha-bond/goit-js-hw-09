@@ -25,7 +25,7 @@ refs.btnSubmit.addEventListener('submit', evt => {
   let stepValue = Number(refs.step.value);
   let amountValue = Number(refs.amount.value);
 
-  for (let i = 1; i < amountValue; i += 1) {
+  for (let i = 1; i <= amountValue; i += 1) {
     createPromise(i, delayValue)
       .then(({ i, delayValue }) => {
         return Notify.success(`Fulfilled promise ${i} in ${delayValue}ms`);

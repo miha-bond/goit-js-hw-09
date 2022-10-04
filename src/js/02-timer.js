@@ -39,15 +39,15 @@ refs.startBtn.addEventListener('click', () => {
   Notify.info('Відлік почато');
   let intervalId = setInterval(() => {
     const deltaTime = selectedDate - Date.now();
+    if (deltaTime <= 500) {
+      clearInterval(intervalId);
+      return Notify.success('Відлік закінчено');
+    }
     const reverseTimer = convertMs(deltaTime);
     refs.days.textContent = addLeadingZero(reverseTimer.days);
     refs.hours.textContent = addLeadingZero(reverseTimer.hours);
     refs.minutes.textContent = addLeadingZero(reverseTimer.minutes);
     refs.seconds.textContent = addLeadingZero(reverseTimer.seconds);
-    if (deltaTime <= 500) {
-      clearInterval(intervalId);
-      return Notify.success('Відлік закінчено');
-    }
   }, 1000);
 });
 // -----------------------------------------------
