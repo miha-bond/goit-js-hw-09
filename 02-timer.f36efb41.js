@@ -7,5 +7,5 @@ var e="undefined"!=typeof globalThis?globalThis:"undefined"!=typeof self?self:"u
 //! Бібліотека повідомлень
 //! УВАГА
 (0,s.default)(B.input,J),//! flatpickr
-console.log(q),B.startBtn.addEventListener("click",(()=>{B.startBtn.disabled=!0,B.input.disabled=!0,c.Notify.info("Відлік почато");let e=setInterval((()=>{const t=q-Date.now(),n=function(e){const t=1e3,n=60*t,a=60*n,i=24*a,o=Math.floor(e/i),r=Math.floor(e%i/a),l=Math.floor(e%i%a/n),c=Math.floor(e%i%a%n/t);return{days:o,hours:r,minutes:l,seconds:c}}(t);if(B.days.textContent=K(n.days),B.hours.textContent=K(n.hours),B.minutes.textContent=K(n.minutes),B.seconds.textContent=K(n.seconds),t<=500)return clearInterval(e),c.Notify.success("Відлік закінчено")}),1e3)}));
-//# sourceMappingURL=02-timer.633bb716.js.map
+console.log(q),B.startBtn.addEventListener("click",(()=>{B.startBtn.disabled=!0,B.input.disabled=!0,c.Notify.info("Відлік почато");let e=setInterval((()=>{const t=q-Date.now();if(t<=500)return clearInterval(e),c.Notify.success("Відлік закінчено");const n=function(e){const t=1e3,n=60*t,a=60*n,i=24*a,o=Math.floor(e/i),r=Math.floor(e%i/a),l=Math.floor(e%i%a/n),c=Math.floor(e%i%a%n/t);return{days:o,hours:r,minutes:l,seconds:c}}(t);B.days.textContent=K(n.days),B.hours.textContent=K(n.hours),B.minutes.textContent=K(n.minutes),B.seconds.textContent=K(n.seconds)}),1e3)}));
+//# sourceMappingURL=02-timer.f36efb41.js.map

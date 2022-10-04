@@ -7,5 +7,5 @@
 //! Бібліотека повідомлень
 //! УВАГА
 (0,s.default)(B.input,J),//! flatpickr
-console.log(q),B.startBtn.addEventListener("click",(function(){B.startBtn.disabled=!0,B.input.disabled=!0,c.Notify.info("Відлік почато");var e=setInterval((function(){var t,n,a,i,o,r,l,s,d,u=q-Date.now(),f=(t=u,o=24*(i=60*(a=60*(n=1e3))),r=Math.floor(t/o),l=Math.floor(t%o/i),s=Math.floor(t%o%i/a),d=Math.floor(t%o%i%a/n),{days:r,hours:l,minutes:s,seconds:d});if(B.days.textContent=K(f.days),B.hours.textContent=K(f.hours),B.minutes.textContent=K(f.minutes),B.seconds.textContent=K(f.seconds),u<=500)return clearInterval(e),c.Notify.success("Відлік закінчено")}),1e3)}))}();
-//# sourceMappingURL=02-timer.1800fcc5.js.map
+console.log(q),B.startBtn.addEventListener("click",(function(){B.startBtn.disabled=!0,B.input.disabled=!0,c.Notify.info("Відлік почато");var e=setInterval((function(){var t=q-Date.now();if(t<=500)return clearInterval(e),c.Notify.success("Відлік закінчено");var n,a,i,o,r,l,s,d,u,f=(n=t,r=24*(o=60*(i=60*(a=1e3))),l=Math.floor(n/r),s=Math.floor(n%r/o),d=Math.floor(n%r%o/i),u=Math.floor(n%r%o%i/a),{days:l,hours:s,minutes:d,seconds:u});B.days.textContent=K(f.days),B.hours.textContent=K(f.hours),B.minutes.textContent=K(f.minutes),B.seconds.textContent=K(f.seconds)}),1e3)}))}();
+//# sourceMappingURL=02-timer.e6c8705c.js.map
